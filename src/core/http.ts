@@ -149,7 +149,7 @@ export function assertDashboardHoldsNoCoreSecrets(env: Record<string, string | u
   if (found.length) throw new Error(`Split dashboard must not hold core-only settings: ${found.join(", ")} (remove them; only the core needs them)`);
 }
 
-function optsFromEnv(): Opts {
+export function optsFromEnv(): Opts {
   if (process.env.CORE_MODE === "server") throw new Error("CORE_URL and CORE_MODE=server can't both be set: a process is either the dashboard or the core");
   assertDashboardHoldsNoCoreSecrets();
   const baseUrl = assertSecureCoreUrl(process.env.CORE_URL).toString();
