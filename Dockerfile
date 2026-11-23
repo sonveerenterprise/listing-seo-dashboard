@@ -1,14 +1,14 @@
 # Dashboard image. No database, no secrets: configuration comes from the host's environment at runtime
 # (CORE_URL, CORE_PUBLIC_URL, APP_URL, CORE_SIGNING_KEYS, CORE_SIGNING_KEY_ID and display settings).
 #   docker build -t listing-seo-dashboard .
-FROM node:22-slim AS build
+FROM node:26-slim AS build
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM node:22-slim
+FROM node:26-slim
 WORKDIR /app
 ENV NODE_ENV=production PORT=3000 HOSTNAME=0.0.0.0 NEXT_TELEMETRY_DISABLED=1
 COPY --from=build --chown=node:node /app/.next/standalone ./
