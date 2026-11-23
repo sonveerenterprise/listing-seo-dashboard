@@ -1,0 +1,26 @@
+{
+  "name": "listing-seo-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Web dashboard for the Listing SEO for Amazon service. It is a client of the hosted core API and contains no analysis logic.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test --experimental-strip-types tests/*.test.ts"
+  },
+  "dependencies": {
+    "next": "15.5.29",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "22.15.0",
+    "@types/react": "19.1.2",
+    "@types/react-dom": "19.1.2",
+    "typescript": "5.9.3"
+  }
+}
