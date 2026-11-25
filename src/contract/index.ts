@@ -55,6 +55,9 @@ export interface Finding {
   fix?: string;
 }
 
+/** One score meter (rule checks only, before payment). `score` 0-100, or null when the listing has no data for it. */
+export interface Meter { key: "title" | "bullets" | "description" | "images" | "rules"; label: string; score: number | null }
+
 /** Listing areas that get their own problem → solution page. */
 export const SECTION_KEYS = ["title", "highlights", "bullets", "description", "backend", "images", "aplus_basic", "aplus_premium"] as const;
 export type SectionKey = (typeof SECTION_KEYS)[number];

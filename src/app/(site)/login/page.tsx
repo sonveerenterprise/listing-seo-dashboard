@@ -11,7 +11,7 @@ export default async function Login({ searchParams }: { searchParams: Promise<{ 
       <p className="muted">Save reports and run full analyses.</p>
       {failed && <p className="error">Sign-in didn&apos;t complete. Please try again.</p>}
       <form action="/auth/start" method="get">
-        <button className="btn">Continue with Google</button>
+        <button className="cta">Continue with Google</button>
       </form>
     </main>
   );
