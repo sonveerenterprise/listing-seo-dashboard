@@ -1,6 +1,6 @@
 # Listing SEO dashboard
 
-The web dashboard for **SellerSEO**: pages, components, the API contract and a signed HTTP client.
+The web dashboard for **ListRankly**: pages, components, the API contract and a signed HTTP client.
 
 It is a **client of the hosted Listing SEO core service**. The core, which holds the analysis, scoring, accounts,
 credits and payments, is a separate private service and is **not** part of this repository. This dashboard does
