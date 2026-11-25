@@ -2,9 +2,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { MARKETPLACES } from "@/contract";
+import Icon from "./Icon";
 
-// Top-of-dashboard search: enter an ASIN, get a report (like OpenSEO's domain box).
-export default function AsinBox({ enabled, defaultAsin = "", defaultMarketplace = "amazon.in" }: { enabled: boolean; defaultAsin?: string; defaultMarketplace?: string }) {
+/** ASIN search: shows the score meters (no charge). Rendered only when the core can look up ASINs. */
+export default function AsinBox({ variant, defaultAsin = "", defaultMarketplace = "amazon.in" }: { variant: "top" | "hero" | "card"; defaultAsin?: string; defaultMarketplace?: string }) {
   const router = useRouter();
   const [asin, setAsin] = useState(defaultAsin);
   const [mk, setMk] = useState(defaultMarketplace);
@@ -27,19 +28,20 @@ export default function AsinBox({ enabled, defaultAsin = "", defaultMarketplace 
       router.push(`/app/reports/${j.id}`);
     } catch (e) {
       setErr(e instanceof Error ? e.message : "Something went wrong");
-      setBusy(false);
     }
+    setBusy(false);
   }
 
   return (
-    <form className="asinbox" onSubmit={go}>
+    <form className={`asinbox ${variant}`} onSubmit={go}>
       <select value={mk} onChange={(e) => setMk(e.target.value)} aria-label="Marketplace">
         {MARKETPLACES.filter((m) => m.asinLookup).map((m) => <option key={m.id} value={m.id}>{m.id}</option>)}
       </select>
-      <input value={asin} onChange={(e) => setAsin(e.target.value)} placeholder="Enter an ASIN, e.g. B0XXXXXXXX" pattern="[A-Za-z0-9]{10}" title="10-character ASIN" maxLength={10} required disabled={!enabled || busy} />
-      <button className="btn" disabled={!enabled || busy}>{busy ? "Analysing… 1–3 min" : "Analyze"}</button>
-      {!enabled && <span className="muted small">ASIN lookup isn&apos;t set up on this server — <a href="/app/new">paste the listing</a> instead.</span>}
-      {err && <div className="error" style={{ flexBasis: "100%" }}>{err}</div>}
+      <input value={asin} onChange={(e) => setAsin(e.target.value)} aria-label="ASIN" placeholder="Enter ASIN" pattern="[A-Za-z0-9]{10}" title="10-character ASIN" maxLength={10} required disabled={busy} />
+      <button className={variant === "top" ? "go" : "cta"} disabled={busy} aria-label={variant === "top" ? "Check this ASIN" : undefined} data-busy={busy || undefined}>
+        {variant === "top" ? <Icon name="find" /> : busy ? "Checking…" : "Check my listing"}
+      </button>
+      {err && <div className="error" role="alert">{err}</div>}
     </form>
   );
 }

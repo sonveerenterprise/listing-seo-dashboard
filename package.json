@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
-  "description": "Web dashboard for the Listing SEO for Amazon service. It is a client of the hosted core API and contains no analysis logic.",
+  "description": "Web dashboard for the SellerSEO service. It is a client of the hosted core API and contains no analysis logic.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

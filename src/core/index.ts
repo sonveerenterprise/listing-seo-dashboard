@@ -21,11 +21,8 @@ export const core: CoreApi = {
   download: async (u, id) => pick().download(u, id),
   unlock: async (u, id) => pick().unlock(u, id),
   billing: async (u) => pick().billing(u),
-  createOrder: async (u, p) => pick().createOrder(u, p),
+  createOrder: async (u, p, q) => pick().createOrder(u, p, q),
   verifyPayment: async (u, p) => pick().verifyPayment(u, p),
-  getKey: async (u) => pick().getKey(u),
-  setKey: async (u, k) => pick().setKey(u, k),
-  deleteKey: async (u) => pick().deleteKey(u),
 };
 
 /** Sign-in session calls to the core. */

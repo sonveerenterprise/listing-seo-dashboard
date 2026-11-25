@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { publicConfig as config } from "@/lib/public-config";
 
 export const metadata: Metadata = {
-  title: `${config.appName} — audit and rewrite your Amazon listing`,
+  title: `${config.appName} — Amazon listing SEO analysis for sellers`,
   description: "Get a Listing SEO Score for your Amazon listing, see every blocker, and get a paste-ready rewrite.",
 };
 

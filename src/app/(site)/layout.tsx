@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { publicConfig as config } from "@/lib/public-config";
 import { currentUserId } from "@/lib/session";
+import Brand from "@/components/Brand";
 
 // Public pages (home, pricing, legal, free check, login): marketing header and footer.
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
@@ -9,11 +10,11 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
     <>
       <header className="top">
         <div className="wrap">
-          <Link href="/" className="logo">🔎 {config.appName}</Link>
+          <Brand name={config.appName} href="/" />
           <nav>
-            <Link href="/check">Free check</Link>
+            <Link href="/check">Check a listing</Link>
             {config.billingEnabled && <Link href="/pricing">Pricing</Link>}
-            {userId ? <Link className="btn" href="/app">Dashboard</Link> : <Link className="btn" href="/login">Sign in</Link>}
+            {userId ? <Link className="cta" href="/app">Dashboard</Link> : <Link className="cta" href="/login">Sign in</Link>}
           </nav>
         </div>
       </header>

@@ -2,7 +2,7 @@
 // Every request is signed (signing.ts): method, path + query, timestamp, nonce, access-token hash and body hash.
 // User-scoped calls carry the user's core-issued access token; the dashboard never sends a user id.
 // Holds no proprietary logic: it only moves JSON defined by the public contract.
-import type { CoreApi, CoreAuthApi, CoreResult, Me, ReportSummary, HealthResult, CheckResult, ReportView, ReportDownload, TokenPair, BillingView, CheckoutOrder, OwnKey } from "@/contract/api";
+import type { CoreApi, CoreAuthApi, CoreResult, Me, ReportSummary, HealthResult, CheckResult, ReportView, ReportDownload, TokenPair, BillingView, CheckoutOrder } from "@/contract/api";
 import { Unauthorized, CoreUnavailable } from "./errors.ts";
 import { parseKeyRing, signRequest } from "./signing.ts";
 
@@ -113,25 +113,16 @@ export function createHttpCore(o: Opts): CoreApi {
       return asResult<ReportDownload>(await call("GET", `/api/v1/reports/${encodeURIComponent(id)}/download`, userId));
     },
     async unlock(userId, id) {
-      return asResult<{ ok: true }>(await call("POST", `/api/v1/reports/${encodeURIComponent(id)}/unlock`, userId));
+      return asResult<{ ok: true }>(await call("POST", `/api/v1/reports/${encodeURIComponent(id)}/unlock`, userId, undefined, 310_000)); // the full report runs now
     },
     async billing(user) {
       return asResult<BillingView>(await call("GET", "/api/v1/billing", user));
     },
-    async createOrder(user, packId) {
-      return asResult<CheckoutOrder>(await call("POST", "/api/v1/billing/orders", user, { packId }));
+    async createOrder(user, packId, quantity) {
+      return asResult<CheckoutOrder>(await call("POST", "/api/v1/billing/orders", user, { packId, quantity }));
     },
     async verifyPayment(user, proof) {
       return asResult<{ ok: true }>(await call("POST", "/api/v1/billing/verify", user, proof));
-    },
-    async getKey(user) {
-      return asResult<OwnKey>(await call("GET", "/api/v1/keys", user));
-    },
-    async setKey(user, key) {
-      return asResult<OwnKey>(await call("POST", "/api/v1/keys", user, { key }, 30_000));
-    },
-    async deleteKey(user) {
-      return asResult<{ ok: true }>(await call("DELETE", "/api/v1/keys", user));
     },
   };
 }
