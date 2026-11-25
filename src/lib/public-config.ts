@@ -3,7 +3,7 @@
 const env = (k: string, d = "") => process.env[k] ?? d;
 
 export const publicConfig = {
-  appName: env("APP_NAME", "SellerSEO"),
+  appName: env("APP_NAME", "ListRankly"),
   billingEnabled: env("BILLING_ENABLED", "false") === "true",
   cost: {
     unlock: Number(env("CREDITS_PER_UNLOCK", env("CREDITS_PER_ANALYSIS", "1"))),
